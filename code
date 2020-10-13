@@ -1,0 +1,24 @@
+# -*- coding: utf-8 -*-
+
+import requests
+from bs4 import BeautifulSoup
+import csv
+
+
+i = 2 
+   
+while i <1873:
+# first, you should run 'url~i+1', and find what errors happen.
+    try:# this is the roop you want to run.
+        url = "url-%d/"%i
+        html = requests.get(url)
+        soup = BeautifulSoup(html.content, "html.parser")
+        adress= soup.find_all('td', class_= "detail")
+        with open('starbacklist.csv','a', encoding = "utf_8_sig") as f:
+            writer = csv.writer(f)
+            writer.writerow(adress[4])
+        i = i+1
+    except IndexError:# The error type that you have find should be written in "except~".
+        #this is the roop that makes an error.
+        print("error_number%d"%i)
+        i = i+1
